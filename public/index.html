@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NAJMA — Smash burgers, Beirut</title>
+  <meta name="description" content="NAJMA (نجمة, star) — smash burgers in Hamra, Beirut. Scroll to smash, stack and box your burger." />
+  <meta name="theme-color" content="#0a0a05" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23e3321d'/%3E%3Cpath d='M32 13l5.6 12.4 13.4 1.3-10.1 8.9 3 13.2L32 41.9 20.1 48.8l3-13.2-10.1-8.9 13.4-1.3z' fill='%230a0a05'/%3E%3C/svg%3E" />
+  <link rel="preload" href="fonts/anton.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- loader: the star draws itself while the first chapter loads -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <svg class="loader-star" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" /><path d="M50 18l8.8 19.5 21.2 2.1-15.9 14 4.7 20.8L50 63.6 31.2 74.4l4.7-20.8-15.9-14 21.2-2.1z" /></svg>
+    <p class="loader-word">نجمة</p>
+    <p class="loader-def"><em>najma</em> (n.) — a star</p>
+    <span class="loader-pct" id="loaderPct">00</span>
+  </div>
+
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- the menu opens out of the glowing star on the box -->
+  <div class="portal" id="portal" aria-hidden="true"><p class="portal-word">THE LINEUP</p></div>
+
+  <div class="hud" aria-hidden="true"><svg id="hudLines"></svg><div id="hudTags"></div></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 100 100" class="brand-star"><circle cx="50" cy="50" r="48" /><path d="M50 18l8.8 19.5 21.2 2.1-15.9 14 4.7 20.8L50 63.6 31.2 74.4l4.7-20.8-15.9-14 21.2-2.1z" /></svg>
+      <span class="brand-lat">NAJMA</span><span class="brand-ar">نجمة</span>
+    </a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#smash" data-go="0.6">Smash</a>
+      <a href="#stack" data-go="0.35">Stack</a>
+      <a href="#box" data-go="0.6">Box</a>
+      <a href="#lineup" data-go="0.1">Menu</a>
+    </nav>
+    <a class="nav-order" href="#order" data-go="0.8">Order <span id="orderCount">3</span></a>
+  </header>
+
+  <main>
+    <!-- 00 hero -->
+    <section class="hero" id="top">
+      <div data-r="hero:-1:-1:0.05:0.5">
+        <p class="hero-eyebrow i1"><span class="ar">نجمة</span> najma — n. a star</p>
+        <div class="hero-foot i2">
+          <h1>STAR OF<br />THE STREET.</h1>
+          <p>Smash burgers · Hamra, Beirut · since 2026</p>
+        </div>
+        <div class="hero-side i3">
+          <p class="live"><i></i>Open now · till 3 am</p>
+          <p class="scroll-hint">Scroll to smash <span>↓</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01 smash -->
+    <section class="chapter" id="smash">
+      <div class="sticky">
+        <header class="head" data-r="smash:0.04:0.16:0.9:1" data-rm="smash:0.0:0.1:0.2:0.3">
+          <p class="kicker"><b>01</b> The Smash <span class="ar">ضربة</span></p>
+          <h2>SMASHED.<br /><em>NOT PRESSED.</em></h2>
+          <p class="body">260°C flat-top. Two balls of beef. One heavy press. Ninety seconds later: lace edges, juicy middle.</p>
+        </header>
+        <div class="stat" data-r="smash:0.55:0.68:0.92:1" data-rm="smash:0.6:0.7:0.9:1">
+          <b>90</b><span>seconds on<br />the flat-top</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 stack -->
+    <section class="chapter" id="stack">
+      <div class="sticky">
+        <header class="head" data-r="stack:0.03:0.1:0.15:0.2" data-rm="stack:0.02:0.08:0.13:0.18">
+          <p class="kicker"><b>02</b> The Stack <span class="ar">طبقات</span></p>
+          <h2>EIGHT LAYERS.<br /><em>ZERO SHORTCUTS.</em></h2>
+          <p class="body">Pulled apart so you can see every one of them. Keep scrolling and we build it back.</p>
+        </header>
+        <p class="rebuild" data-r="stack:0.6:0.7:0.92:1" data-rm="stack:0.62:0.7:0.9:1">Built back, layer by layer <span>↺</span></p>
+      </div>
+    </section>
+
+    <!-- 03 box -->
+    <section class="chapter" id="box">
+      <div class="sticky">
+        <header class="head" data-r="box:0.12:0.22:0.68:0.76" data-rm="box:0.12:0.2:0.4:0.48">
+          <p class="kicker"><b>03</b> The Box <span class="ar">العلبة</span></p>
+          <h2>SEALED<br /><em>HOT.</em></h2>
+          <p class="body">Smash, dirty fries and a cookie shake, shut tight and at your door in 25 minutes.</p>
+        </header>
+        <div class="sticker" data-r="box:0.2:0.3:0.68:0.76" data-rm="box:0.2:0.28:0.6:0.68"><b>$15</b><span>THE BOX<br />COMBO</span></div>
+      </div>
+    </section>
+
+    <!-- 04 lineup (cream) -->
+    <section class="lineup" id="lineup">
+      <div class="band"><div class="marquee-track">SMASHED NOT PRESSED <i>★</i> <span class="ar">نجمة</span> <i>★</i> OPEN TILL 3 AM <i>★</i> HAMRA, BEIRUT <i>★</i> SMASHED NOT PRESSED <i>★</i> <span class="ar">نجمة</span> <i>★</i> OPEN TILL 3 AM <i>★</i> HAMRA, BEIRUT <i>★</i>&nbsp;</div></div>
+      <div class="sticky">
+        <p class="lineup-word" aria-hidden="true">THE LINEUP</p>
+        <div class="ring-stage"><div class="ring" id="ring"></div></div>
+        <div class="li-panel" id="liPanel">
+          <p class="kicker"><b>04</b> The Lineup <span class="ar">المنيو</span></p>
+          <h3><span id="liName"></span></h3>
+          <p class="li-ar" id="liAr"></p>
+          <p class="li-desc" id="liDesc"></p>
+          <div class="li-buy"><b id="liPrice"></b><button class="btn" id="addBtn" type="button">+ Add to order</button></div>
+        </div>
+        <div class="li-meta"><span id="liCount">01 / 06</span><i><b id="liBar"></b></i></div>
+      </div>
+    </section>
+
+    <!-- 05 order: the receipt prints as you scroll -->
+    <section class="order" id="order">
+      <div class="sticky">
+        <div class="order-copy" data-r="order:0.02:0.12:-1:-1" data-rm="order:0.0:0.08:0.2:0.3">
+          <p class="kicker"><b>05</b> Your order <span class="ar">طلبيتك</span></p>
+          <h2>PRINTED<br /><em>HOT.</em></h2>
+          <p class="body">Anything you add from the lineup prints right here. Send it straight to the kitchen.</p>
+          <a class="btn btn-red" id="sendBtn" href="#" target="_blank" rel="noopener">Send to kitchen ★</a>
+        </div>
+        <div class="printer-wrap">
+          <div class="paper" id="paper">
+            <div class="rc" id="rcInner">
+              <p class="rc-logo">★ NAJMA ★</p>
+              <p class="rc-ar">نجمة</p>
+              <p class="rc-center">SMASH BURGERS — HAMRA, BEIRUT</p>
+              <p class="rc-dash"></p>
+              <div class="rc-row"><span>ORDER <b id="rcNo">#0263</b></span><span id="rcDate"></span></div>
+              <p class="rc-dash"></p>
+              <div id="rcItems"></div>
+              <p class="rc-dash"></p>
+              <div class="rc-row"><span>SUBTOTAL</span><span id="rcSub"></span></div>
+              <div class="rc-row"><span>DELIVERY</span><span>FREE</span></div>
+              <div class="rc-row rc-total"><span>TOTAL</span><span id="rcTotal"></span></div>
+              <p class="rc-dash"></p>
+              <p class="rc-center">SMASHED NOT PRESSED</p>
+              <p class="rc-center rc-ar-thanks">شكراً حبيبي ★</p>
+              <p class="rc-barcode"></p>
+            </div>
+          </div>
+          <div class="printer" id="printer"><span class="led"></span><span class="slot"></span></div>
+          <a class="btn btn-red send-mobile" id="sendBtn2" href="#" target="_blank" rel="noopener">Send to kitchen ★</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot" id="foot">
+      <div class="band band--dark"><div class="marquee-track">NAJMA <i>★</i> <span class="ar">نجمة</span> <i>★</i> STAR OF THE STREET <i>★</i> NAJMA <i>★</i> <span class="ar">نجمة</span> <i>★</i> STAR OF THE STREET <i>★</i>&nbsp;</div></div>
+      <div class="foot-hero">
+        <img src="img/hero_a.webp" alt="NAJMA double smash" loading="lazy" />
+        <p class="foot-word">نجمة</p>
+      </div>
+      <div class="foot-grid">
+        <div><dt>Find us</dt><dd>Makdessi Street, Hamra — Beirut</dd></div>
+        <div><dt>Hours</dt><dd>Every day · 12:00 – 03:00</dd></div>
+        <div><dt>Delivery</dt><dd>All of Beirut · 25 min</dd></div>
+        <div><dt>Name</dt><dd><span class="ar">نجمة</span> means star. Be one on the street.</dd></div>
+      </div>
+      <div class="foot-row">
+        <span>NAJMA — Smash burgers, Beirut</span>
+        <a href="#top">Back to top ↑</a>
+        <span>Concept website by <a href="https://wa.me/96171919974" target="_blank" rel="noopener">AS Design LB</a></span>
+      </div>
+      <p class="foot-note">NAJMA is a concept brand made for a portfolio. Menu, prices and address are illustrative.</p>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <svg class="cursor" id="cursor" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 8l11.5 25.6 27.9 2.8-20.9 18.4 6.1 27.4L50 68 25.4 82.2l6.1-27.4L10.6 36.4l27.9-2.8z" /></svg>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
